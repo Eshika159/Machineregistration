@@ -1,0 +1,35 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css', integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm', crossorigin='anonymous')
+    script(type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js')
+    script(type='text/javascript', src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+    script(src="/javascripts/ResetScript.js",type='text/javascript')
+
+
+
+    body
+        a(href='/users/login') Login
+        div
+            p.text-info This Page is valid for 5 minutes after that you will be redirected to login page
+        br
+        form(action="/users/reset", method="post",name='form1',onsubmit='return checkPassword(this.name)')
+            .form-group
+            label(for="newPass") New Password
+            input.form-control(type="password",name='newPass',placeholder='Enter new Password')
+            div
+                p(id="newPass",class="text-danger")  
+
+            .form-group
+            label(for="confirmPass") Confirm Password
+            input.form-control(type="password",name='confirmPass',placeholder='Enter Password') 
+            div
+                p(id="confirmPass",class="text-danger")  
+
+            
+            
+
+            button.btn.btn-success.mt-2(type="submit" , value="update") Update

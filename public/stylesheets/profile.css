@@ -1,0 +1,25 @@
+body {
+    background-color: #eaeaea;
+  }
+  
+  img.avatar {
+    border: 1px solid #eee;
+  }
+  
+  .only-bottom-margin {
+    margin-top: 0px;
+  }
+  
+  .activity-mini {
+    padding-right: 15px;
+    float: left;
+  }
+
+  .ptext p{
+    font-weight:600;
+    color: rgb(56, 47, 77);
+  }
+
+  .card{
+    box-shadow: 10px 10px 5px  grey;
+  }

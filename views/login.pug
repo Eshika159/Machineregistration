@@ -1,0 +1,75 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/login1.css')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css', integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm', crossorigin='anonymous')
+    script(type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js')
+    script(type='text/javascript', src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+    script(src="/javascripts/myscript.js",type='text/javascript')
+   
+   
+  
+  body
+    
+    .login-wrap
+      .login-html
+        div(align='center')
+          img.img-responsive(src='/icons/yamaha.png',width="170", height="137",style='opacity:1; filter: alpha(opacity=30);')
+        
+        input#tab-1.sign-in(type='radio', name='tab', checked='')
+        label.tab(for='tab-1') Sign In
+        form.login-form(action="/users/login", method="post")
+          .sign-in-htm
+            .group
+              label.label(for='user') UserID
+              input#user.input(type='text',name='userID',required)
+            .group
+              label.label(for='pass') Password
+              input#pass.input(type='password', data-type='password',name='password',required)
+            .group
+              input#check.check(type='checkbox', checked='')
+              label(for='check')
+                span.icon
+                |  Keep me Signed in
+            .group
+              input.button(type='submit', value='Sign In')
+            
+            .group
+              button.button(type="button" class="btn btn-primary mt-6 pb-6" data-toggle="modal" data-target="#forgotPasswordModal") Forgot Password
+            .group
+              div(align='center')
+                h5.text-info #{result} 
+            
+    div(id="forgotPasswordModal" class="modal justify-content-center" role="dialog",style='width:40%; margin-left:30%;')
+      div(class="modal-dialog")
+
+      <!-- Modal content-->
+      
+          div(class="modal-content")
+
+              div(class="modal-header")
+                  h4(class="modal-title") Change Password
+                  button(type="button" class="close" data-dismiss="modal") &times;
+                  <!--Modal Body -->
+              div(class="modal-body")
+                  
+                  form(action="/users/forgot", method="post",name="form2",onsubmit="return passwordCheck(this.name)")
+                      .form-group
+                          label(for='email') Email ID
+                          input.form-control(type="text", name="email") 
+                          div
+                              p(id="email",class="text-danger") 
+                       
+                            
+                      
+                      
+                        
+                        
+                      button.btn.btn-success.mt-2(type="submit" , value="submit") Change 
+                      button.btn.btn-primary.mt-2.mx-2(type="reset" , value="Reset") Reset 
+              div(class="modal-footer")
+                  button(type="button" class="btn btn-danger" data-dismiss="modal") Cancel
+
+          

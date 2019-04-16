@@ -1,0 +1,24 @@
+extends layout
+
+block content
+    form(action="/users/signup" method="post")
+        div
+            label(for='userName') Username:
+            input(type="text" name="userName") 
+        div
+            label(for='userID') UserID:
+            input(type="text" name="userID") 
+
+        div
+            label(for='emailId') Email:
+            input(type="text" name="emailId") 
+        div
+            label(for='phone') phone:
+            input(type="text" name="phone")     
+       
+        div
+            label(for='password') Password:
+            input(type="password" name="password")
+        
+        div
+            input(type="submit" value="Signup")

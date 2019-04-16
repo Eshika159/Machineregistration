@@ -1,0 +1,161 @@
+extends layout
+block headContent
+
+ script(src="/javascripts/userscript.js",type='text/javascript')
+ link(rel='stylesheet', href='/stylesheets/profile.css')
+ 
+  
+block content
+    
+    
+         
+    
+    
+    div(align='center',class='')
+
+        div(class="card shadow p-3 mb-5 mt-4 bg-white rounded" style="width: 55rem;height:30rem;")
+            
+            div(class="card-body")
+                if USER
+                .row
+                    
+                    .col-md-12.lead
+                        h3(align='left')   User Profile 
+                            //i.fa.fa-user-circle.fa-4s  User Profile
+                        hr 
+                        br
+                .row.ptext
+                    .col-md-4.text-center
+                        img.img-circle.avatar.avatar-original(style='-webkit-user-select:none;display:block; margin:auto;', src='/icons/user1.png')
+                    
+                    .col-md-8
+                        .row
+                            .col-md-6
+                                span.text-muted  Name:
+                            .col-md-6
+                                p=USER.userName
+                            br
+                            br
+                            
+                        .row
+                            
+                            .col-md-6
+                                span.text-muted Email:
+                            .col-md-6
+                                p=USER.emailId 
+                                
+                            .col-md-6
+                                span.text-muted Userid:
+                            .col-md-6
+                                p=USER.userID
+                                
+                            .col-md-6
+                                span.text-muted Phone:
+                            .col-md-6    
+                                p=USER.phone
+                                br
+                                br
+                                
+                            
+                .row
+                    .col-md-12
+                        hr
+                        .col-md-9
+                            button.btn.btn-lg-6.btn-success.pull-right(type="button" ,data-toggle="modal" ,data-target="#updateModal") Edit Profile 
+                        .col-md-3
+                            button.btn.btn-lg-6.btn-primary.pull-left(type="button",data-toggle="modal",data-target="#changePasswordModal") Change Password 
+                        
+        
+            
+                
+
+
+ 
+    div(id="updateModal" class="modal justify-content-center" role="dialog",style='width:40%; margin-left:30%;')
+        div(class="modal-dialog")
+
+        <!-- Modal content-->
+        
+            div(class="modal-content")
+
+                div(class="modal-header")
+                    h4(class="modal-title") Update Profile
+                    button(type="button" class="close" data-dismiss="modal") &times;
+                    <!--Modal Body -->
+                div(class="modal-body")
+                    
+                    form(action="/users/update", method="post",name="form1",onsubmit="return checkValidateUser(this.name)",onreset='resetHandlerUpdate(this.name)')
+                        .form-group
+                            label(for="userID") User ID
+                            input.form-control(type="text", name="userID",readonly,value=USER.userID)
+                            div
+                                p(id="form1userID",class="text-danger") 
+                        
+                        .form-group
+                            label(for='userName') User Name
+                            input.form-control(type="text" ,name="userName",value=USER.userName)  
+                            div
+                                p(id="form1userName",class="text-danger") 
+                        .form-group
+                            label(for='emailId') Email ID
+                            input.form-control(type="text", name="emailId",value=USER.emailId) 
+                            div
+                                p(id="form1emailId",class="text-danger") 
+                        .form-group
+                            label(for='phone') Phone 
+                            input.form-control(type="text" ,name="phone",value=USER.phone)  
+                            div
+                                p(id="form1phone",class="text-danger") 
+                        
+                        
+                        
+                        
+                        button.btn.btn-success.mt-2(type="submit" , value="update") Update 
+                        button.btn.btn-primary.mt-2.mx-2(type="reset" , value="Reset") Reset 
+                div(class="modal-footer")
+                    button(type="button" class="btn btn-danger" data-dismiss="modal") Close
+
+
+    div(id="changePasswordModal" class="modal justify-content-center" role="dialog",style='width:40%; margin-left:30%;')
+        div(class="modal-dialog")
+
+        <!-- Modal content-->
+        
+            div(class="modal-content")
+
+                div(class="modal-header")
+                    h4(class="modal-title") Change Password
+                    button(type="button" class="close" data-dismiss="modal") &times;
+                    <!--Modal Body -->
+                div(class="modal-body")
+                    
+                    form(action="/users/change", method="post",name="form2",onsubmit="return passwordCheck(this.name)",onreset='resetHandlerPass()')
+                        .form-group
+                            label(for='password') Current Password
+                            input.form-control(type="password", name="password") 
+                            div
+                                p(id="password",class="text-danger") 
+                        .form-group
+                            label(for='newPassword') New Password 
+                            input.form-control(type="password" ,name="newPassword")  
+                            div
+                                p(id="newPassword",class="text-danger") 
+                        .form-group
+                            label(for='confirmPassword') Confirm Password 
+                            input.form-control(type="password" ,name="confirmPassword")  
+                            div
+                                p(id="confirmPassword",class="text-danger") 
+                        .form-group
+                             
+                            input.form-control(type="hidden" ,name="userpass",value=USER.password)  
+                             
+                        
+                        
+                        
+                        
+                        button.btn.btn-success.mt-2(type="submit" , value="submit") Change 
+                        button.btn.btn-primary.mt-2.mx-2(type="reset" , value="Reset") Reset 
+                div(class="modal-footer")
+                    button(type="button" class="btn btn-danger" data-dismiss="modal") Cancel
+
+    

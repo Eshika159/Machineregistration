@@ -1,0 +1,203 @@
+extends layout
+block headContent
+
+  script(src="/javascripts/myscript.js",type='text/javascript')
+  link(rel='stylesheet', href='/stylesheets/machine.css')
+
+block content
+
+ 
+  div(align="right" ,class='mt-2')
+    button(type="button" class="btn btn-primary pb-6" data-toggle="modal" data-target="#addMachineModal"  ) Add Machine
+  br  
+
+
+    
+  
+  
+
+  <!--Add Machine  Modal Start -->
+  div(id="addMachineModal" class="modal" role="dialog")
+    div(class="modal-dialog")
+
+      <!-- Modal content-->
+      div(class="modal-content")
+        div(class="modal-header")
+          h4(class="modal-title") Add Machine
+          button(type="button" class="close" data-dismiss="modal") &times;
+        <!--Modal Body -->
+        div(class="modal-body")
+          div.form-group
+            form(action="/machine/add", method="post",name="form1",onsubmit="return checkValidate(this.name)",onreset='resetHandler(this.name);')
+              label(for="machineID") Machine ID
+              input.form-control(type="text", name="machineID")
+              div
+                p(id="form1machineID",class="text-danger") 
+              
+              
+              label(for='machineName') Machine Name
+              input.form-control(type="text" ,name="machineName")  
+              div
+                p(id="form1machineName",class="text-danger") 
+              
+              label(for='serialNo') Serial No
+              input.form-control(type="text", name="serialNo") 
+              div
+                p(id="form1serialNo",class="text-danger") 
+              
+              label(for='modelID') Model ID 
+              input.form-control(type="text" ,name="modelID")  
+              div
+                p(id="form1modelID",class="text-danger") 
+              
+              label(for="ip") IP Address
+              input.form-control(type="text", name="ip")  
+              div
+                p(id="form1ip",class="text-danger") 
+              
+              label(for="machineStatus" ) Machine Status
+              select.form-control(class="",name="machineStatus")
+                option(value="" disabled ) Choose your option
+                option(value="Running") Running
+                option(value="Paused") Paused
+                option(value="Emergency Stop") Emergency Stop
+              div
+                p(id="form1status",class="text-danger")
+              
+              button.btn.btn-success.mt-2(type="submit" , value="Add machine") Add 
+              button.btn.btn-primary.mt-2.mx-2(type="reset" , value="Reset") Reset 
+        div(class="modal-footer")
+          button(type="button" class="btn btn-danger" data-dismiss="modal") Close
+    
+             
+
+
+
+
+
+
+  
+  <!-- Machine  View  Start -->
+  if machinelist.length
+    table.table.table-hover.table-striped.table-responsive-lg
+      thead.thead-dark
+        tr
+            th Machine ID 
+            th Machine Name
+            th Serial No.
+            th Model ID 
+            th IP Address
+            th Machine Status
+            th Edit
+            th Delete 
+      tbody      
+        each data in machinelist
+            tr
+                td= data.machineID
+                td= data.machineName
+                td=data.serialNo
+                td=data.modelID
+                td=data.ip
+                td=data.machineStatus
+                td
+                  button(type="button" ,value=data.machineID,onclick="edit(this.value)",data-toggle="modal" data-target="#editMachineModal").btn.btn-warning Edit
+                td
+                  button(type="button" ,value=data.machineID,onclick="setID(this.value)",data-toggle="modal" data-target="#deleteMachineModal").btn.btn-danger Delete
+                  
+  else
+    h3(align='center') No registrations yet :(
+
+  
+      <!--Edit Machine  Modal Start -->
+  div(id="editMachineModal" class="modal" role="dialog")
+    div(class="modal-dialog")
+
+      <!-- Modal content-->
+      div(class="modal-content")
+        div(class="modal-header")
+          h4(class="modal-title") Edit Machine
+          button(type="button" class="close" data-dismiss="modal") &times;
+        <!--Modal Body -->
+        div(class="modal-body")
+          div.form-group
+            form(action="/machine/update", method="post",name="form2",onsubmit="return checkValidate(this.name)",onreset='resetHandler(this.name);')
+              label(for="machineID") Machine ID
+              input.form-control(type="text",id="machineID", name="machineID",readonly) 
+              div
+                p(id="form2machineID",class="text-danger") 
+              
+              label(for='machineName') Machine Name
+              input.form-control(type="text" ,id="machineName",name="machineName", required)  
+              div
+                p(id="form2machineName",class="text-danger") 
+              
+              label(for='serialNo') Serial No
+              input.form-control(type="text",id="serialNo", name="serialNo", required) 
+              div
+                p(id="form2serialNo",class="text-danger")
+              
+              label(for='moddelID') Model ID 
+              input.form-control(type="text" ,id="modelID",name="modelID", required)  
+              div
+                p(id="form2modelID",class="text-danger")
+              
+              label(for="ip") IP Address
+              input.form-control(type="text",id="ip", name="ip" ,required) 
+              div
+                p(id="form2ip",class="text-danger")
+              
+              label(for="machineStatus" required) Machine Status
+              select.form-control(class="",name="machineStatus",id="machineStatus")
+                option(value="" disabled selected) Choose your option
+                option(value="Running") Running
+                option(value="Paused") Paused
+                option(value="Emergency Stop") Emergency Stop
+              div
+                p(id="form2status",class="text-danger")
+                
+              
+              
+              button(type="submit" , value="Edit machine").btn.btn-success.mt-2 Update 
+              button(type="reset" , id="reset",onclick="edit(this.value)").btn.btn-primary.mt-2.mx-2 Reset 
+
+        div(class="modal-footer")
+          button(type="button" class="btn btn-danger" data-dismiss="modal") Close
+
+
+  div(id="deleteMachineModal" class="modal" role="dialog")
+    div(class="modal-dialog")
+
+      <!-- Modal content-->
+      div(class="modal-content")
+        div(class="modal-header")
+          h4(class="modal-title") Delete Machine
+          button(type="button" class="close" data-dismiss="modal") &times;
+        <!--Modal Body -->
+        div(class="modal-body")
+          div.form-group
+            form(action="", method="get",name="form3")
+              
+              input.form-control(type="hidden",id="form3machineID", name="machineID",readonly) 
+              
+              
+              div
+                p Are you sure you want to Delete?
+              
+                
+              
+              
+              button(type="submit" , value="Delete machine",onclick='delMachine()').btn.btn-success.mt-2 Ok &nbsp; 
+              button(type="button" class="btn btn-danger " data-dismiss="modal").mt-2.mx-2 Cancel 
+
+        
+    
+  
+     
+
+
+
+
+
+
+
+  
