@@ -2,8 +2,7 @@
 //UPDATE PROFILE VALIDATION
 function checkValidateUser(name) {
     console.log('------------->check User validation');
-    var userID = document.forms[name]['userID'].value;
-    var userName = document.forms[name]['userName'].value;
+   
     var emailId = document.forms[name]['emailId'].value;
     var phone = document.forms[name]['phone'].value;
 

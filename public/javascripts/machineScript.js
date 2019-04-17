@@ -23,7 +23,7 @@ function checkajax() {
         return;
     } catch (e) { }
     console.log("///////////////////ajax////");
-    alert("your browser doesnot support ajax");
+    //alert("your browser doesnot support ajax");
 }
 
 

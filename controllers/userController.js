@@ -198,11 +198,12 @@ exports.reset1=function(req,res){
     var verificationCode=req.params.token;
     if(verificationCode==TOKEN){
         //valid for 5 minutes
-        if(seconds<300)
-        res.render('Reset');
-        else
+        if(seconds<300){
+        res.render('Reset');}
+        else{
         res.render('login',{result:'The password reset link is no longer valid. Please request another password reset email from the login page.'});
     }
+}
     else{
         res.render('login',{result:'The password reset link doesnot match.Please Try again'});
     }
