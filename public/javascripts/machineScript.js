@@ -152,20 +152,124 @@ function resetHandler(name) {
 
 }
 
-
+//VALIDATING INPUTS ON CHANGE
 $(document).ready(function(){
 
+    //MODAL ON CLOSE CLEAR FIELDS 
+    $('#addMachineModal').on('hidden.bs.modal', function (e) {
+        $(this)
+          .find("input,select")
+             .val('')
+             .end();
+             $('#form1machineID').html('');
+             $('#form1machineName').html('');
+             $('#form1serialNo').html('');
+             $('#form1modelID').html('');
+             $('#form1ip').html('');
+      });
+
+    //MODAL ON CLOSE CLEAR FIELDS   
+    $('#editMachineModal').on('hidden.bs.modal', function (e) {
+    
+            $('#form2machineID').html('');
+            $('#form2machineName').html('');
+            $('#form2serialNo').html('');
+            $('#form2modelID').html('');
+            $('#form2ip').html('');
+    });
+
+
+    //VALIDATING MACHINEID
     $('[name="machineID"]').on('input', function() {
         var machineID=$(this).val();
-        //alert(machineID);
         var machineIDvalid='';
+        var machineReg = new RegExp('^([a-zA-Z]{2}[0-9]{2,})$');
         if (machineID.length == 0 || machineID.length < 4 || !machineReg.test(machineID)) {
-            //alert(machineID);
             console.log("------------->" + machineReg.test(machineID.value));
             machineIDvalid = "Please enter ID with first 2 letters and next digit";
-            $('#form1machineID').text(machineIDvalid);
-        }
+            }
+
+            var form='form2';
+            if(document.forms['form1']['machineID'].value!=''){
+                form='form1';
+            }
+        $('#'+form+'machineID').html(machineIDvalid);
         
 
     });
+
+    //VALIDATING MACHINE NAME
+    $('[name="machineName"]').on('input',function(){
+        
+        var machineName=$(this).val();
+        var machineNameValid = '';
+        if (machineName.length < 4 || machineName.length > 15) {
+            machineNameValid = "Please enter Name with min 4 and max 15 characters";
+        }
+
+        var form='form2';
+        if(document.forms['form1']['machineID'].value!=''){
+            form='form1';
+        }
+        $('#'+form+'machineName').html(machineNameValid);
+
+
+    });
+
+
+    //VALIDATING SERIAL NO
+
+    $('[name="serialNo"]').on('input',function(){
+        var serialNo=$(this).val();
+        var serailNoValid = '';
+        var serialReg = new RegExp('^([0-9]{4})$');
+        if (serialNo.length != 4 || !serialReg.test(serialNo)) {
+            console.log("Serial no " + serialReg.test(serialNo));
+            serailNoValid = "Please enter digit[0-9] of length 4";
+        }
+        var form='form2';
+        if(document.forms['form1']['machineID'].value!=''){
+            form='form1';
+        }
+
+        $('#'+form+'serialNo').html(serailNoValid);
+       
+    });
+
+    //VALIDATING MODEL ID
+
+    $('[name="modelID"]').on('input', function() {
+        var modelID=$(this).val();
+        var modelIDvalid='';
+        var modelReg = new RegExp('^([a-zA-Z]{2}[0-9]{2,})$');
+        if (modelID.length == 0 || modelID.length < 4 || !modelReg.test(modelID)) {
+           
+            modelIDvalid = "Please enter ID with first 2 letters and next digit";
+            }
+            var form='form2';
+        if(document.forms['form1']['machineID'].value!=''){
+            form='form1';
+        }
+        $('#'+form+'modelID').html(modelIDvalid);
+        
+
+    });
+
+
+    //VALIDATING IP ADDRESS
+    $('[name="ip"]').on('input',function(){
+        var ip=$(this).val();
+        var ipReg = new RegExp('^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])$');
+        var ipValid='';
+        if (!ipReg.test(ip)) {
+            ipValid = "Please enter valid IP Adrress";
+        }
+        var form='form2';
+        if(document.forms['form1']['machineID'].value!=''){
+            form='form1';
+        }
+        $('#'+form+'ip').html(ipValid);
+       
+    });
+
 });

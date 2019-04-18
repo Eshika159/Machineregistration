@@ -230,9 +230,9 @@ exports.reset=function(req,res){
        
     });
 }
-    else
+    else{
     res.render('login',{result:'Timeout for resetting password.Please try again'});
-    
+    }
     
     
  
